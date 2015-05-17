@@ -1,5 +1,5 @@
 /*!
- * JSONA JavaScript Library v1.0.0
+ * JSONA JavaScript Library v1.0.1
  * https://github.com/sharplog/JSONA
  *
  * Copyright (c) 2015 https://github.com/sharplog
@@ -29,7 +29,7 @@ JSONA.prototype.fromJSONA = function(jsona){
 
 			var objects = []
 			for( var i in jsona){
-				objects.push( this.transObjectFromJSONA(fields, jsona[i]) );
+				objects.push( this._transObjectFromJSONA(fields, jsona[i]) );
 			}
 
 			return objects;
@@ -47,13 +47,13 @@ JSONA.prototype.fromJSONA = function(jsona){
 /**
  * Transform a JSONA data object to a normal JSON object.
  */
-JSONA.prototype.transObjectFromJSONA = function(fields, values){
+JSONA.prototype._transObjectFromJSONA = function(fields, values){
 	var object = {};
 
 	for(var i=0, j=0, l=fields.length; i<l; i++, j++){
 		// object field
 		if( i+1 < l && fields[i+1] instanceof Array){
-			object[fields[i]] = this.transObjectFromJSONA(fields[i+1], values[j]);
+			object[fields[i]] = this._transObjectFromJSONA(fields[i+1], values[j]);
 			i++;
 		}
 		else{
@@ -70,12 +70,12 @@ JSONA.prototype.transObjectFromJSONA = function(fields, values){
 JSONA.prototype.toJSONA = function(json){
 	if( json instanceof Array && json.length > 1 ){
 		if( !(json[0] instanceof Array) && json[0] instanceof Object ){
-			var fields = this.transFieldsFromJSON(json[0]);
+			var fields = this._transFieldsFromJSON(json[0]);
 			fields.unshift(this.symbol);
 
 			var objects = [fields];
 			for( var i in json){
-				objects.push( this.transValuesFromJSON(json[i]));
+				objects.push( this._transValuesFromJSON(json[i]));
 			}
 
 			return objects;
@@ -93,12 +93,12 @@ JSONA.prototype.toJSONA = function(json){
 /**
  * Get all property's names of normal JSON object, including embeded object.
  */
-JSONA.prototype.transFieldsFromJSON = function(object){
+JSONA.prototype._transFieldsFromJSON = function(object){
 	var fields = [];
 	for( var e in object ){
 		fields.push(e);
 		if( object[e] instanceof Object && !(object[e] instanceof Array) ){
-			fields.push( this.transFieldsFromJSON(object[e]) );
+			fields.push( this._transFieldsFromJSON(object[e]) );
 		}
 	}
 	return fields;
@@ -107,11 +107,11 @@ JSONA.prototype.transFieldsFromJSON = function(object){
 /**
  * Get all property's values of normal JSON object, including embeded object.
  */
-JSONA.prototype.transValuesFromJSON = function(object){
+JSONA.prototype._transValuesFromJSON = function(object){
 	var values = [];
 	for( var e in object ){
 		if( object[e] instanceof Object && !(object[e] instanceof Array) ){
-			values.push( this.transValuesFromJSON(object[e]) );
+			values.push( this._transValuesFromJSON(object[e]) );
 		}
 		else{
 			values.push( this.toJSONA(object[e]) );
@@ -121,7 +121,11 @@ JSONA.prototype.transValuesFromJSON = function(object){
 }
 
 window.JSONA = function(symbol){
-	return new JSONA(symbol);
+	var jsona = new JSONA(symbol);
+	return {
+		fromJSONA: function(o){return jsona.fromJSONA(o)},
+		toJSONA: function(o){return jsona.toJSONA(o)}
+	}
 }
 
 })(window);
