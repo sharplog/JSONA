@@ -1,3 +1,14 @@
+/*!
+ * JSONA JavaScript Library v1.0.0
+ * https://github.com/sharplog/JSONA
+ *
+ * Copyright (c) 2015 https://github.com/sharplog
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ * Date: 2015-05-17
+ */
+
 (function(window) {
 
 var defaultSymbol = "@";
