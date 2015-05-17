@@ -1,0 +1,60 @@
+<script type="text/javascript" src="jsona.js"></script>
+<script type="text/javascript">
+
+var jsona = JSONA();	// JSONA("@#@");
+var tojs = JSON.stringify;
+
+// a object
+var jo1 = {name: "Rose", gender: "female", height: 150};
+var	ja1 = jsona.toJSONA(jo1);
+console.log("ja1: " + tojs(ja1));
+var	jao1 = jsona.fromJSONA(ja1);
+console.log("jo1: " + tojs(jao1));
+
+// a object array
+var jo2 = [{name: "Rose", gender: "female", height: 150}, 
+		   {name: "John", gender: "male", height: 152}];
+var	ja2 = jsona.toJSONA(jo2);
+console.log("ja2: " + tojs(ja2));
+var	jao2 = jsona.fromJSONA(ja2);
+console.log("jo2: " + tojs(jao2));
+
+// a object array with embeded object
+var jo3 = [{name: "Rose", gender: "female", scores: {math: 90, music: 85}, height: 150}, 
+		   {name: "John", gender: "male", scores: {math: 95, music: 80}, height: 152}];
+var	ja3 = jsona.toJSONA(jo3);
+console.log("ja3: " + tojs(ja3));
+var	jao3 = jsona.fromJSONA(ja3);
+console.log("jo3: " + tojs(jao3));
+
+// a object array with multi-level embeded object
+var jo4 = [{name: "Rose", gender: "female", scores: {math: {algebra: 90, geometry: 92}, music: 85}, height: 150}, 
+		   {name: "John", gender: "male", scores: {math: {algebra: 95, geometry: 89}, music: 80}, height: 152}];
+var	ja4 = jsona.toJSONA(jo4);
+console.log("ja4: " + tojs(ja4));
+var	jao4 = jsona.fromJSONA(ja4);
+console.log("jo4: " + tojs(jao4));
+
+// object arry in a object
+var jo5 = {name: "test", data: jo4};
+var	ja5 = jsona.toJSONA(jo5);
+console.log("ja5: " + tojs(ja5));
+var	jao5 = jsona.fromJSONA(ja5);
+console.log("jo5: " + tojs(jao5));
+
+// object arry in a array
+var jo6 = ["test", jo4, 1234];
+var	ja6 = jsona.toJSONA(jo6);
+console.log("ja6: " + tojs(ja6));
+var	jao6 = jsona.fromJSONA(ja6);
+console.log("jo6: " + tojs(jao6));
+
+// object arry in a object array
+var jo7 = [{name: "test1", data: jo4, size: 1234}, {name: "test2", data: jo4, size: 5678}];
+var	ja7 = jsona.toJSONA(jo7);
+console.log("ja7: " + tojs(ja7));
+var	jao7 = jsona.fromJSONA(ja7);
+console.log("jo7: " + tojs(jao7));
+
+
+</script>
