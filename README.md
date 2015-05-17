@@ -22,7 +22,7 @@ So, for the large object array, JSONA can has more little size than JSON, and it
 Grammatically, JSONA is JSON. Especially, it has a field symbol '@', which can customized by user.<br>
 
 There have some implemetations here:
-* JavaScript: 1.0.0
+* JavaScript: 1.0.1
 * Java: null
 * PHP: null
 
