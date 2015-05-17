@@ -1,7 +1,7 @@
 # JSONA
-JSONA -- simplify JSON object Array.
+JSONA -- simplify JSON object Array. Compress normal JSON when it has object array.
 
-An JSON object array like this:<br>
+A normal JSON object array like this:<br>
 ```javascript
 [{"name": "Jone", "age": 12, "scores": {"math": 4, "english": 5}, "height": 150},
  {"name": "Smith", "age": 10, "scores": {"math": 4, "english": 4}, "height": 152}, 
@@ -17,6 +17,12 @@ In JSONA, it like this:<br>
  ...]
 ```
 There has a field symbol '@' at the first line, it is the first element of the array. That means the array is field name.<br>
-So, for the large object array, JSONA can has more little size than JSON.<br>
+So, for the large object array, JSONA can has more little size than JSON, and it is still readable.<br>
 
-Grammatically, JSONA is JSON. Especially, it has a field symbol '@', which can customized by user.
+Grammatically, JSONA is JSON. Especially, it has a field symbol '@', which can customized by user.<br>
+
+There have some implemetations here:
+* JavaScript: 1.0.0
+* Java: null
+* PHP: null
+
