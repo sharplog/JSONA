@@ -23,6 +23,6 @@ Grammatically, JSONA is JSON. Especially, it has a field symbol '@', which can c
 
 There have some implemetations here:
 * JavaScript: 1.0.1
-* Java: null
+* Java: 1.0.0
 * PHP: null
 
