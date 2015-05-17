@@ -22,9 +22,9 @@ console.log("ja1: " + tojs(ja1));
 var	jao1 = jsona.fromJSONA(ja1);
 console.log("jo1: " + tojs(jao1));
 
-// a object array
-var jo2 = [{name: "Rose", gender: "female", height: 150}, 
-		   {name: "John", gender: "male", height: 152}];
+// a object array, with embeded array
+var jo2 = [{name: "Rose", gender: "female", height: [123, 150]}, 
+		   {name: "John", gender: "male", height: [120, 152]}];
 var	ja2 = jsona.toJSONA(jo2);
 console.log("ja2: " + tojs(ja2));
 var	jao2 = jsona.fromJSONA(ja2);
