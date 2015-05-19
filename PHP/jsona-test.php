@@ -6,6 +6,8 @@ include "jsona.php";
  */
 
 $jsona = new JSONA();
+//$assoc = true;
+$assoc = false;
 
 function assertEquals($s1, $s2){
 	if($s1===$s2){
@@ -19,11 +21,11 @@ function assertEquals($s1, $s2){
 
  // a object
 function test1(){
-	global $jsona;
+	global $jsona, $assoc;
 	print "<br>==== test1 ====<br>";
 
 	$js = "{\"name\":\"Rose\",\"gender\":\"female\",\"height\":150}";
-	$jo = json_decode($js);
+	$jo = json_decode($js, $assoc);
 	
 	$ja = $jsona->toJSONA($jo);
 
@@ -36,13 +38,13 @@ function test1(){
 
 // a object array, with embeded array
 function test2(){
-	global $jsona;
+	global $jsona, $assoc;
 	print "<br>==== test2 ====<br>";
 	
 	$js = "[{\"name\":\"Rose\",\"gender\":\"female\",\"height\":[123,150]}," .
 						"{\"name\":\"John\",\"gender\":\"male\",\"height\":[120,152]}]";
 	$as = "[[\"@\",\"name\",\"gender\",\"height\"],[\"Rose\",\"female\",[123,150]],[\"John\",\"male\",[120,152]]]";
-	$jo = json_decode($js);
+	$jo = json_decode($js, $assoc);
 
 	$ja = $jsona->toJSONA($jo);
 
@@ -55,13 +57,13 @@ function test2(){
 
 // a object array with embeded object
 function test3(){
-	global $jsona;
+	global $jsona, $assoc;
 	print "<br>==== test3 ====<br>";
 	
 	$js = "[{\"name\":\"Rose\",\"gender\":\"female\",\"scores\":{\"math\":90,\"music\":85},\"height\":150}," .
 					"{\"name\":\"John\",\"gender\":\"male\",\"scores\":{\"math\":95,\"music\":80},\"height\":152}]";
 	$as = "[[\"@\",\"name\",\"gender\",\"scores\",[\"math\",\"music\"],\"height\"],[\"Rose\",\"female\",[90,85],150],[\"John\",\"male\",[95,80],152]]";
-	$jo = json_decode($js);
+	$jo = json_decode($js, $assoc);
 	
 	$ja = $jsona->toJSONA($jo);
 
@@ -74,13 +76,13 @@ function test3(){
 
 // a object array with multi-level embeded object
 function test4(){
-	global $jsona;
+	global $jsona, $assoc;
 	print "<br>==== test4 ====<br>";
 	
 	$js = "[{\"name\":\"Rose\",\"gender\":\"female\",\"scores\":{\"math\":{\"algebra\":90,\"geometry\":92},\"music\":85},\"height\":150}," .
 					"{\"name\":\"John\",\"gender\":\"male\",\"scores\":{\"math\":{\"algebra\":95,\"geometry\":89},\"music\":80},\"height\":152}]";
 	$as = "[[\"@\",\"name\",\"gender\",\"scores\",[\"math\",[\"algebra\",\"geometry\"],\"music\"],\"height\"],[\"Rose\",\"female\",[[90,92],85],150],[\"John\",\"male\",[[95,89],80],152]]";
-	$jo = json_decode($js);
+	$jo = json_decode($js, $assoc);
 	
 	$ja = $jsona->toJSONA($jo);
 
@@ -93,13 +95,13 @@ function test4(){
 
 // object arry in a object
 function test5(){
-	global $jsona;
+	global $jsona, $assoc;
 	print "<br>==== test5 ====<br>";
 	
 	$js = "{\"name\":\"test\",\"data\":[{\"name\":\"Rose\",\"gender\":\"female\",\"scores\":{\"math\":{\"algebra\":90,\"geometry\":92},\"music\":85},\"height\":150}," .
 					"{\"name\":\"John\",\"gender\":\"male\",\"scores\":{\"math\":{\"algebra\":95,\"geometry\":89},\"music\":80},\"height\":152}]}";
 	$as = "{\"name\":\"test\",\"data\":[[\"@\",\"name\",\"gender\",\"scores\",[\"math\",[\"algebra\",\"geometry\"],\"music\"],\"height\"],[\"Rose\",\"female\",[[90,92],85],150],[\"John\",\"male\",[[95,89],80],152]]}";
-	$jo = json_decode($js);
+	$jo = json_decode($js, $assoc);
 	
 	$ja = $jsona->toJSONA($jo);
 
@@ -112,13 +114,13 @@ function test5(){
 
 // object arry in a array
 function test6(){
-	global $jsona;
+	global $jsona, $assoc;
 	print "<br>==== test6 ====<br>";
 	
 	$js = "[\"test\",[{\"name\":\"Rose\",\"gender\":\"female\",\"scores\":{\"math\":{\"algebra\":90,\"geometry\":92},\"music\":85},\"height\":150}," .
 					"{\"name\":\"John\",\"gender\":\"male\",\"scores\":{\"math\":{\"algebra\":95,\"geometry\":89},\"music\":80},\"height\":152}],1234]";
 	$as = "[\"test\",[[\"@\",\"name\",\"gender\",\"scores\",[\"math\",[\"algebra\",\"geometry\"],\"music\"],\"height\"],[\"Rose\",\"female\",[[90,92],85],150],[\"John\",\"male\",[[95,89],80],152]],1234]";
-	$jo = json_decode($js);
+	$jo = json_decode($js, $assoc);
 	
 	$ja = $jsona->toJSONA($jo);
 
@@ -131,7 +133,7 @@ function test6(){
 
 // object arry in a object array
 function test7(){
-	global $jsona;
+	global $jsona, $assoc;
 	print "<br>==== test7 ====<br>";
 	
 	$js = "[{\"name\":\"test1\",\"data\":[{\"name\":\"Rose\",\"gender\":\"female\",\"scores\":{\"math\":{\"algebra\":90,\"geometry\":92},\"music\":85},\"height\":150}," .
@@ -141,7 +143,7 @@ function test7(){
 	$as = "[[\"@\",\"name\",\"data\",\"size\"]," . 
 					  	"[\"test1\",[[\"@\",\"name\",\"gender\",\"scores\",[\"math\",[\"algebra\",\"geometry\"],\"music\"],\"height\"],[\"Rose\",\"female\",[[90,92],85],150],[\"John\",\"male\",[[95,89],80],152]],1234]," . 
 					  	"[\"test2\",[[\"@\",\"name\",\"gender\",\"scores\",[\"math\",[\"algebra\",\"geometry\"],\"music\"],\"height\"],[\"Rose\",\"female\",[[90,92],85],150],[\"John\",\"male\",[[95,89],80],152]],5678]]";
-	$jo = json_decode($js);
+	$jo = json_decode($js, $assoc);
 	
 	$ja = $jsona->toJSONA($jo);
 
@@ -154,13 +156,14 @@ function test7(){
 
 // customized symbol
 function test8(){
+	global $assoc;
 	$jsona = new JSONA("$#@");
 	print "<br>==== test8 ====<br>";
 
 	$js = "[{\"name\":\"Rose\",\"gender\":\"female\",\"height\":[123,150]}," .
 						"{\"name\":\"John\",\"gender\":\"male\",\"height\":[120,152]}]";
 	$as = "[[\"$#@\",\"name\",\"gender\",\"height\"],[\"Rose\",\"female\",[123,150]],[\"John\",\"male\",[120,152]]]";
-	$jo = json_decode($js);
+	$jo = json_decode($js, $assoc);
 	
 	$ja = $jsona->toJSONA($jo);
 

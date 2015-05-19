@@ -24,7 +24,8 @@ class JSONA
 	 */
 	public function fromJSONA($jsona){
 		if( is_array($jsona) && count($jsona) > 1){
-			if( is_array($jsona[0]) && $jsona[0][0] === $this->_symbol ) {
+			if( isset($jsona[0]) && is_array($jsona[0]) && 
+					isset($jsona[0][0]) && $jsona[0][0] === $this->_symbol ) {
 				$fields = array_shift($jsona);
 				array_shift($fields);		// shift symbol
 
@@ -75,7 +76,8 @@ class JSONA
 	 */
 	public function toJSONA($php){
 		if( is_array($php) && count($php) > 1 ){
-			if( is_object($php[0]) || ( is_array($php[0]) && !isset($php[0][0])) ){
+			if( (isset($php[0]) && is_object($php[0])) || 
+					( isset($php[0]) && is_array($php[0]) && !isset($php[0][0])) ){
 				$fields = $this->_transFieldsFromJSON($php[0]);
 				array_unshift( $fields, $this->_symbol);
 
