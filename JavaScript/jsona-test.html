@@ -67,5 +67,9 @@ console.log("ja7: " + tojs(ja7));
 var	jao7 = jsona.fromJSONA(ja7);
 console.log("jo7: " + tojs(jao7));
 
+var ja8 = [[{a:"a"}],[{a:[1,2]}]];
+ja8.tt = function(){};
 
+var jao8 = jsona.fromJSONA(ja8);
+console.log("jo8: " + tojs(jao8));
 </script>

@@ -9,7 +9,7 @@
  * Date: 2015-05-17
  */
 
-(function(window) {
+;(function(window) {
 
 var defaultSymbol = "@";
 
@@ -22,23 +22,26 @@ var JSONA = function(symbol){
  */
 JSONA.prototype.fromJSONA = function(jsona){
 	
-	if( jsona instanceof Array && jsona.length > 1){
-		if( jsona[0] instanceof Array && jsona[0][0] === this.symbol ) {
+	if( jsona instanceof Array ){
+		if( jsona.length > 1 && jsona[0] instanceof Array && jsona[0][0] === this.symbol ) {
 			var fields = jsona.shift();
 			fields.shift();		// shift symbol
 
 			var objects = []
-			for( var i in jsona){
+			for( var i=0, l=jsona.length; i < l; i++){
 				objects.push( this._transObjectFromJSONA(fields, jsona[i]) );
 			}
 
 			return objects;
 		}
 
-		for(var i in jsona) jsona[i] = this.fromJSONA(jsona[i]);
+		for(var i=0, l=jsona.length; i < l; i++) jsona[i] = this.fromJSONA(jsona[i]);
 	}
 	else if( jsona instanceof Object){
-		for(var e in jsona) jsona[e] = this.fromJSONA(jsona[e]);
+		for(var e in jsona) {
+			if( typeof jsona[e] == 'function') continue;
+			jsona[e] = this.fromJSONA(jsona[e]);
+		}
 	}
 
 	return jsona;
@@ -68,8 +71,8 @@ JSONA.prototype._transObjectFromJSONA = function(fields, values){
  * Transform a normal JSON data object to a JSONA data object.
  */
 JSONA.prototype.toJSONA = function(json){
-	if( json instanceof Array && json.length > 1 ){
-		if( !(json[0] instanceof Array) && json[0] instanceof Object ){
+	if( json instanceof Array ){
+		if( json.length > 1 && !(json[0] instanceof Array) && json[0] instanceof Object ){
 			var fields = this._transFieldsFromJSON(json[0]);
 			fields.unshift(this.symbol);
 
@@ -81,10 +84,13 @@ JSONA.prototype.toJSONA = function(json){
 			return objects;
 		}
 
-		for(var i in json) json[i] = this.toJSONA(json[i]);
+		for(var i=0, l=json.length; i < l; i++) json[i] = this.toJSONA(json[i]);
 	}
 	else if( json instanceof Object){
-		for(var e in json) json[e] = this.toJSONA(json[e]);
+		for(var e in json) {
+			if( typeof json[e] == 'function') continue;
+			json[e] = this.toJSONA(json[e]);
+		}
 	}
 
 	return json;
@@ -96,6 +102,8 @@ JSONA.prototype.toJSONA = function(json){
 JSONA.prototype._transFieldsFromJSON = function(object){
 	var fields = [];
 	for( var e in object ){
+		if( typeof object[e] == 'function') continue;
+
 		fields.push(e);
 		if( object[e] instanceof Object && !(object[e] instanceof Array) ){
 			fields.push( this._transFieldsFromJSON(object[e]) );
@@ -110,6 +118,8 @@ JSONA.prototype._transFieldsFromJSON = function(object){
 JSONA.prototype._transValuesFromJSON = function(object){
 	var values = [];
 	for( var e in object ){
+		if( typeof object[e] == 'function') continue;
+
 		if( object[e] instanceof Object && !(object[e] instanceof Array) ){
 			values.push( this._transValuesFromJSON(object[e]) );
 		}
