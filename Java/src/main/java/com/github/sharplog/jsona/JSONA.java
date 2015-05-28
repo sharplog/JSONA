@@ -18,10 +18,10 @@ import net.sf.json.JSONObject;
 public class JSONA {
 	private String symbol = "@"; // default field symbol
 
-	JSONA() {
+	public JSONA() {
 	}
 
-	JSONA(String symbol) {
+	public JSONA(String symbol) {
 		this.symbol = symbol;
 	}
 
