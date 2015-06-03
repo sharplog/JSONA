@@ -1,12 +1,12 @@
 /*!
- * JSONA Java Library v1.0.0
+ * JSONA Java Library v1.0.1
  * https://github.com/sharplog/JSONA
  *
  * Copyright (c) 2015 https://github.com/sharplog
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
- * Date: 2015-05-17
+ * Date: 2015-06-03
  */
 package com.github.sharplog.jsona;
 

@@ -1,12 +1,12 @@
 /*!
- * JSONA JavaScript Library v1.0.1
+ * JSONA JavaScript Library v1.0.2
  * https://github.com/sharplog/JSONA
  *
  * Copyright (c) 2015 https://github.com/sharplog
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
- * Date: 2015-05-17
+ * Date: 2015-06-03
  */
 
 ;(function(window) {
