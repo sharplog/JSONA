@@ -17,7 +17,7 @@ In JSONA, it like this:<br>
  ...]
 ```
 There has a field symbol '@' at the first line, it is the first element of the array. That means the array contains field names.<br>
-So, for the large object array, JSONA can has more little size than JSON, and it is still readable.<br>
+So, for the large object array, JSONA can has less size than JSON, and it is still readable.<br>
 
 Grammatically, JSONA is JSON. Especially, it has a field symbol '@', which can customized by user.<br>
 
